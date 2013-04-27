@@ -1,0 +1,28 @@
+pkgname=cyclopts
+pkgver=master
+pkgrel=1
+pkgdesc=""
+arch=('any')
+url="http://github.com/cyclus/cyclopts"
+license=('BSD')
+groups=('CNERG')
+source=(https://github.com/cyclus/cyclopts/archive/$pkgver.tar.gz)
+sha256sums=('e6354f54b4e4691ac1a0e55c275bbf918aeea90aac63cc3bfae2d1bb88b98db1')
+depends=('coin-cbc')
+makedepends=('coin-cbc')
+
+build() {
+  cd "$srcdir/cyclopts-$pkgver"
+  rm -Rf build
+  mkdir build; cd build;
+  cmake ../src -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+#check() {
+#}
+
+package() {
+  cd "$srcdir/cyclopts-$pkgver/build"
+  make DESTDIR="$pkgdir/" install
+}
