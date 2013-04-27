@@ -1,0 +1,27 @@
+pkgname=cyclus
+pkgver=develop
+pkgrel=1
+pkgdesc=""
+arch=('any')
+url="http://cyclus.github.io"
+license=('BSD')
+groups=('CNERG')
+source=(https://github.com/cyclus/cyclus/archive/$pkgver.tar.gz)
+sha256sums=('6f9f4b526432b23b42fa1bc8c044a799dbc45b84ee27765e6a746e4af67d0d40')
+depends=('cmake>=2.8' 'libxml++' 'sqlite>=3.7.10' 'boost' 'cyclopts')
+
+build() {
+  cd "$srcdir/cyclus-$pkgver"
+  rm -Rf build
+  mkdir build; cd build;
+  cmake ../src -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+#check() {
+#}
+
+package() {
+  cd "$srcdir/cyclus-$pkgver/build"
+  make DESTDIR="$pkgdir/" install
+}
