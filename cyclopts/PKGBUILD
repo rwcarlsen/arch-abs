@@ -8,7 +8,7 @@ license=('BSD')
 groups=('CNERG')
 source=(https://github.com/cyclus/cyclopts/archive/$pkgver.tar.gz)
 sha256sums=('e6354f54b4e4691ac1a0e55c275bbf918aeea90aac63cc3bfae2d1bb88b98db1')
-depends=('cmake>=2.8' 'boost' 'coin-cbc')
+depends=('cmake>=2.8' 'boost' 'coin-cbc' 'blas' 'lapack')
 
 build() {
   cd "$srcdir/cyclopts-$pkgver"
