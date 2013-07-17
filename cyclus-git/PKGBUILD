@@ -9,7 +9,8 @@
 
 # Maintainer: Your Name <youremail@domain.com>
 pkgname=cyclus-git
-pkgver=VERSION
+_gitname=cyclus
+pkgver=0.0.0
 pkgrel=1
 pkgdesc="The Cyclus fuel cycle simulator"
 arch=('any')
@@ -20,34 +21,11 @@ depends=('libxml++' 'sqlite>=3.7.10' 'boost' 'cyclopts>=0.2')
 makedepends=('cmake>=2.8' 'git')
 provides=('cyclus')
 conflicts=('cyclus')
-source=(https://github.com/cyclus/cyclus)
-
-md5sums=('f455e9cc4eb6dcd25a98d8b195aa345b') #generate with 'makepkg -g'
-
-_gitroot=GITURL
-_gitname=MODENAME
+source=(git://github.com/cyclus/cyclus.git)
+md5sums=('SKIP')
 
 build() {
-  cd "$srcdir"
-  msg "Connecting to GIT server...."
-
-  if [[ -d "$_gitname" ]]; then
-    cd "$_gitname" && git pull origin
-    msg "The local files are updated."
-  else
-    git clone "$_gitroot" "$_gitname"
-  fi
-
-  msg "GIT checkout done or server timeout"
-  msg "Starting build..."
-
-  rm -rf "$srcdir/$_gitname-build"
-  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
-  cd "$srcdir/$_gitname-build"
-
-  #
-  # BUILD HERE
-  #
+  cd $_gitname
   rm -Rf build
   mkdir build; cd build;
   cmake ../src -DCMAKE_INSTALL_PREFIX=/usr
@@ -55,7 +33,7 @@ build() {
 }
 
 package() {
-  cd "$srcdir/$_gitname-build/build"
+  cd $_gitname/build
   make DESTDIR="$pkgdir/" install
 }
 
