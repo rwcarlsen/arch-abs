@@ -1,0 +1,61 @@
+
+# This is an example PKGBUILD file. Use this as a start to creating your own,
+# and remove these comments. For more information, see 'man PKGBUILD'.
+# NOTE: Please fill out the license field for your package! If it is unknown,
+# then please put 'unknown'.
+
+# See http://wiki.archlinux.org/index.php/VCS_PKGBUILD_Guidelines
+# for more information on packaging from GIT sources.
+
+# Maintainer: Your Name <youremail@domain.com>
+pkgname=cyclus-git
+pkgver=VERSION
+pkgrel=1
+pkgdesc="The Cyclus fuel cycle simulator"
+arch=('any')
+url="http://cyclus.github.io"
+license=('BSD')
+groups=('CNERG')
+depends=('libxml++' 'sqlite>=3.7.10' 'boost' 'cyclopts>=0.2')
+makedepends=('cmake>=2.8' 'git')
+provides=('cyclus')
+conflicts=('cyclus')
+source=(https://github.com/cyclus/cyclus)
+
+md5sums=('f455e9cc4eb6dcd25a98d8b195aa345b') #generate with 'makepkg -g'
+
+_gitroot=GITURL
+_gitname=MODENAME
+
+build() {
+  cd "$srcdir"
+  msg "Connecting to GIT server...."
+
+  if [[ -d "$_gitname" ]]; then
+    cd "$_gitname" && git pull origin
+    msg "The local files are updated."
+  else
+    git clone "$_gitroot" "$_gitname"
+  fi
+
+  msg "GIT checkout done or server timeout"
+  msg "Starting build..."
+
+  rm -rf "$srcdir/$_gitname-build"
+  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
+  cd "$srcdir/$_gitname-build"
+
+  #
+  # BUILD HERE
+  #
+  rm -Rf build
+  mkdir build; cd build;
+  cmake ../src -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd "$srcdir/$_gitname-build/build"
+  make DESTDIR="$pkgdir/" install
+}
+

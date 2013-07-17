@@ -1,27 +1,25 @@
+# Maintainer: Robert Carlsen <rwcarlsen@gmail.com>
 pkgname=cyclopts
-pkgver=master
+pkgver=0.2
 pkgrel=1
-pkgdesc=""
+pkgdesc="Cyclus optimization library"
 arch=('any')
 url="http://github.com/cyclus/cyclopts"
 license=('BSD')
 groups=('CNERG')
 source=(https://github.com/cyclus/cyclopts/archive/$pkgver.tar.gz)
-sha256sums=('9a00467ade286b724e4809c58c40a62a28f2503197250bfb7ff3d1681189f5a6')
+md5sums=('aa0e09e0746a299818a61b48be62ec51')
 depends=('cmake>=2.8' 'boost' 'coin-cbc' 'blas' 'lapack')
 
 build() {
-  cd "$srcdir/cyclopts-$pkgver"
+  cd "$srcdir/$pkgname-$pkgver"
   rm -Rf build
   mkdir build; cd build;
   cmake ../src -DCMAKE_INSTALL_PREFIX=/usr
   make
 }
 
-#check() {
-#}
-
 package() {
-  cd "$srcdir/cyclopts-$pkgver/build"
+  cd "$srcdir/$pkgname-$pkgver/build"
   make DESTDIR="$pkgdir/" install
 }
