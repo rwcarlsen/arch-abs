@@ -1,7 +1,7 @@
-# Maintainer: Daniel Ehlers <danielehlers@mindeye.net>
+# Maintainer: Robert Carlsen <rwcarlsen@gmail.com>
 pkgname=coin-cbc
 pkgver=2.8.0
-pkgrel=3
+pkgrel=1
 pkgdesc="Cbc (Coin-or branch and cut) is an open-source mixed integer programming solver written in C++."
 arch=('i686' 'x86_64')
 url="https://projects.coin-or.org/Cbc"
