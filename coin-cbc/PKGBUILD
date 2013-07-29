@@ -9,6 +9,8 @@ license=('EPL')
 groups=('coin-or')
 source=(http://www.coin-or.org/download/source/Cbc/Cbc-$pkgver.tgz)
 md5sums=('17118a8962e31476f0a2f6005a158697')
+provides=('coin-clp' 'coin-cgl' 'coin-utils')
+conflicts=('coin-clp' 'coin-cgl' 'coin-utils')
 
 build() {
   cd "$srcdir/Cbc-$pkgver"

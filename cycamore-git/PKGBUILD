@@ -1,18 +1,18 @@
 # Maintainer: Robert Carlsen <rwcarlsen@gmail.com>
-pkgname=cyclus-git
-_gitname=cyclus
+pkgname=cycamore-git
+_gitname=cycamore
 pkgver=0.0.0
 pkgrel=1
-pkgdesc="The Cyclus fuel cycle simulator"
+pkgdesc="The Cyclus fuel cycle simulator basic module pack."
 arch=('any')
 url="http://cyclus.github.io"
 license=('BSD')
 groups=('CNERG')
-depends=('libxml++' 'sqlite>=3.7.10' 'boost' 'cyclopts>=0.2')
+depends=('cyclus')
 makedepends=('cmake>=2.8' 'git')
-provides=('cyclus')
-conflicts=('cyclus')
-source=(git://github.com/cyclus/cyclus.git)
+provides=('cycamore')
+conflicts=('cycamore')
+source=(git://github.com/cyclus/cycamore.git)
 md5sums=('SKIP')
 
 build() {
