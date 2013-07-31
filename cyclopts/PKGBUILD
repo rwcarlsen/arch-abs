@@ -9,7 +9,8 @@ license=('BSD')
 groups=('CNERG')
 source=(https://github.com/cyclus/cyclopts/archive/$pkgver.tar.gz)
 md5sums=('aa0e09e0746a299818a61b48be62ec51')
-depends=('cmake>=2.8' 'boost' 'coin-cbc' 'blas' 'lapack')
+depends=('boost' 'coin-cbc' 'blas' 'lapack')
+makedepends=('cmake>=2.8')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
