@@ -8,7 +8,7 @@ arch=('any')
 url="http://cyclus.github.io"
 license=('BSD')
 groups=('CNERG')
-depends=('libxml++' 'sqlite>=3.7.10' 'boost' 'cyclopts>=0.2')
+depends=('libxml++' 'sqlite>=3.7.10' 'boost>=1.5.0' 'blas' 'coin-cbc' 'lapack')
 makedepends=('cmake>=2.8' 'git')
 provides=('cyclus')
 conflicts=('cyclus')
