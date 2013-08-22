@@ -7,12 +7,13 @@ pkgdesc="PyNE: The Nuclear Engineering Toolkit"
 arch=('any')
 url="http://pynesim.org"
 license=('BSD')
-depends=('python2' 'python2-numpy' 'python2-scipy' 'cython2' 'hdf5' 'python2-pytables' 'python2-sphinx')
+depends=('python2' 'python2-numpy' 'python2-matplotlib' 'python2-scipy' 'cython2' 'hdf5' 'python2-pytables' 'python2-sphinx')
 makedepends=('git')
 provides=('pyne')
 conflicts=('pyne')
 source=(git://github.com/pyne/pyne)
 md5sums=('SKIP')
+install=post.install
 
 build() {
   cd $_gitname
@@ -23,6 +24,5 @@ build() {
 package() {
   cd $_gitname
   python2 setup.py install --prefix=$pkgdir/usr
-  #./nuc_data_make
 }
 
