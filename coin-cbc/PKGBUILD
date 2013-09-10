@@ -1,20 +1,19 @@
 # Maintainer: Robert Carlsen <rwcarlsen@gmail.com>
 pkgname=coin-cbc
-pkgver=2.8.0
-pkgrel=1
+pkgver=2.8.3
+pkgrel=2
 pkgdesc="Cbc (Coin-or branch and cut) is an open-source mixed integer programming solver written in C++."
 arch=('i686' 'x86_64')
 url="https://projects.coin-or.org/Cbc"
 license=('EPL')
 groups=('coin-or')
 source=(http://www.coin-or.org/download/source/Cbc/Cbc-$pkgver.tgz)
-md5sums=('17118a8962e31476f0a2f6005a158697')
+md5sums=('a9fbf49ec0d813364257c5bec958f9bb')
 provides=('coin-clp' 'coin-cgl' 'coin-utils')
 conflicts=('coin-clp' 'coin-cgl' 'coin-utils')
 
 build() {
   cd "$srcdir/Cbc-$pkgver"
-  COIN_SKIP_PROJECTS="Sample" \
   ./configure --prefix=/usr -C
   make
 }
@@ -26,6 +25,5 @@ check() {
 
 package() {
   cd "$srcdir/Cbc-$pkgver"
-  PKG_CONFIG_LIBDIR="${pkgdir}/usr/lib/pkgconfig/" \
   make DESTDIR="$pkgdir/" install
 }
