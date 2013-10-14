@@ -4,14 +4,14 @@ _gitname=cyclus
 pkgver=0.0.0
 pkgrel=1
 pkgdesc="The Cyclus fuel cycle simulator"
-arch=('any')
+arch=('x86_64')
 url="http://cyclus.github.io"
 license=('BSD')
 groups=('CNERG')
 depends=('libxml++' 'sqlite>=3.7.10' 'boost>=1.5.0' 'blas' 'coin-cbc>=2.7' 'lapack')
 makedepends=('cmake>=2.8' 'git')
 provides=('cyclus')
-conflicts=('cyclus')
+conflicts=('cyclus' 'gtest')
 source=(git://github.com/cyclus/cyclus.git#branch=develop)
 md5sums=('SKIP')
 

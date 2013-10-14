@@ -11,6 +11,7 @@ source=(https://github.com/cyclus/cyclus/archive/$pkgver.tar.gz)
 md5sums=('1f2e5564bf7ce9391bcef5ac405f63e9')
 makedepends=('cmake>=2.8')
 depends=('libxml++' 'sqlite>=3.7.10' 'boost' 'cyclopts>=0.2')
+conflicts=('gtest')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
