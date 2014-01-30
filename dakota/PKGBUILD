@@ -1,0 +1,38 @@
+# Maintainer: Robert Carlsen <rwcarlsen@gmail.com>
+pkgname=dakota
+pkgver=5.4.0
+pkgrel=1
+pkgdesc="large-scale engineering optimization and uncertainty analysis package"
+arch=('any')
+url="http://dakota.sandia.gov"
+license=('LGPL')
+groups=('Sandia National Laboratories')
+source=(http://dakota.sandia.gov/distributions/dakota/5.4/dakota-5.4-public.src.tar.gz)
+md5sums=('da8db3826602061aa286003d37762ec3')
+makedepends=('cmake>=2.8')
+depends=('boost' 'blas' 'lapack')
+
+build() {
+  cd $srcdir
+  rm -Rf $pkgname-$pkgver
+  mv dakota-5.4.0.src "$pkgname-$pkgver"
+  cd "$pkgname-$pkgver"
+
+  rm -Rf build
+  mkdir build; cd build;
+  cmake $srcdir/$pkgname-$pkgver -DCMAKE_INSTALL_PREFIX=/usr
+  make -j 2 dakota
+}
+
+check() {
+  cd "$srcdir/$pkgname-$pkgver/build/test"
+  make dakota-diffs-clean
+  ctest -j 2 -R dakota_
+  make dakota-diffs
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver/build"
+  make DESTDIR="$pkgdir/" install
+}
+
