@@ -9,7 +9,7 @@ license=('LGPL')
 groups=('Sandia National Laboratories')
 source=(http://dakota.sandia.gov/distributions/dakota/5.4/dakota-5.4-public.src.tar.gz)
 md5sums=('da8db3826602061aa286003d37762ec3')
-makedepends=('cmake>=2.8')
+makedepends=('cmake>=2.8' 'gcc-fortran')
 optdepends=('openmotif' 'texlive-core' 'doxygen')
 depends=('boost' 'blas' 'lapack')
 
@@ -22,7 +22,7 @@ build() {
   rm -Rf build
   mkdir build; cd build;
   cmake $srcdir/$pkgname-$pkgver -DBOOST_SIGNALS_NO_DEPRECATION_WARNING=true -DCMAKE_INSTALL_PREFIX=/usr
-  make -j 2 dakota
+  make -j 4 dakota
 }
 
 check() {
