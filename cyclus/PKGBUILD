@@ -1,24 +1,23 @@
 # Maintainer: Robert Carlsen <rwcarlsen@gmail.com>
 pkgname=cyclus
-pkgver=0.2
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="The Cyclus fuel cycle simulator"
 arch=('any')
-url="http://cyclus.github.io"
+url="http://fuelcycle.org"
 license=('BSD')
 groups=('CNERG')
 source=(https://github.com/cyclus/cyclus/archive/$pkgver.tar.gz)
-md5sums=('1f2e5564bf7ce9391bcef5ac405f63e9')
+md5sums=('9076a104809d332573416d85174d31cd')
 makedepends=('cmake>=2.8')
-depends=('libxml++' 'sqlite>=3.7.10' 'boost' 'cyclopts>=0.2')
+depends=('libxml++' 'sqlite>=3.7.10' 'boost>=1.5.0' 'blas' 'coin-cbc>=2.7' 'lapack')
 conflicts=('gtest')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
-  rm -Rf build
-  mkdir build; cd build;
-  cmake ../src -DCMAKE_INSTALL_PREFIX=/usr
-  make
+  mkdir -p build; cd build;
+  cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RELEASE
+  make -j
 }
 
 package() {
