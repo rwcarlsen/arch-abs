@@ -19,6 +19,10 @@ build() {
   mv dakota-5.4.0.src "$pkgname-$pkgver"
   cd "$pkgname-$pkgver"
 
+  # patch JEGA SOGA method to prefer non-constraint-violators for final
+  # best fitness selection
+  cat ../../SOGA.patch | patch -d packages/JEGA/SOGA/src
+
   rm -Rf build
   mkdir build; cd build;
   cmake $srcdir/$pkgname-$pkgver -DBOOST_SIGNALS_NO_DEPRECATION_WARNING=true -DCMAKE_INSTALL_PREFIX=/usr
