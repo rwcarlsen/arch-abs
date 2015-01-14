@@ -1,6 +1,6 @@
 # Maintainer: Robert Carlsen <rwcarlsen@gmail.com>
 pkgname=cycamore
-pkgver=0.2
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="The Cyclus fuel cycle simulator"
 arch=('any')
@@ -8,15 +8,15 @@ url="http://cyclus.github.io"
 license=('BSD')
 groups=('CNERG')
 source=(https://github.com/cyclus/cycamore/archive/$pkgver.tar.gz)
-md5sums=('882e0b721791b1a150fcea8b74bf2b79')
+md5sums=('12b65263ee91b6746d4e7f305490e29d')
 makedepends=('cmake>=2.8')
-depends=('libxml++' 'sqlite>=3.7.10' 'boost' 'cyclopts>=0.2' 'cyclus>=0.2')
+depends=('cyclus>=1.2')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
   rm -Rf build
   mkdir build; cd build;
-  cmake ../src -DCMAKE_INSTALL_PREFIX=/usr
+  cmake .. -DCMAKE_INSTALL_PREFIX=/usr
   make
 }
 
