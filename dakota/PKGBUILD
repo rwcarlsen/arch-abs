@@ -1,30 +1,32 @@
 # Maintainer: Robert Carlsen <rwcarlsen@gmail.com>
 pkgname=dakota
-pkgver=5.4.0
+pkgver=6.2.0
 pkgrel=1
 pkgdesc="large-scale engineering optimization and uncertainty analysis package"
 arch=('any')
 url="http://dakota.sandia.gov"
 license=('LGPL')
 groups=('Sandia National Laboratories')
-source=(http://dakota.sandia.gov/distributions/dakota/5.4/dakota-5.4-public.src.tar.gz)
-md5sums=('da8db3826602061aa286003d37762ec3')
+source=(https://dakota.sandia.gov/sites/default/files/distributions/public/dakota-6.2-public.src.tar.gz)
+md5sums=('bc22ec578ae0a33f81d2922f4a3edfd8')
 makedepends=('cmake>=2.8' 'gcc-fortran')
 optdepends=('openmotif' 'texlive-core' 'doxygen')
-depends=('boost' 'blas' 'lapack')
+depends=('boost' 'blas' 'lapack' 'python2')
 
 build() {
   cd $srcdir
   rm -Rf $pkgname-$pkgver
-  mv dakota-5.4.0.src "$pkgname-$pkgver"
+  mv dakota-${pkgver}.src "$pkgname-$pkgver"
   cd "$pkgname-$pkgver"
-
-  # patch JEGA SOGA method to prefer non-constraint-violators for final
-  # best fitness selection
-  cat ../../SOGA.patch | patch -d packages/JEGA/SOGA/src
-
   rm -Rf build
   mkdir build; cd build;
+
+  # dakota assumes python == python2 and this causes problems so disable it
+  sed -i 's/include(FindPythonInterp)//' $srcdir/$pkgname-$pkgver/CMakeLists.txt
+
+  # newer boost serialization versions don't work with dakota's surfpack dependency
+  sed -i 's/\(option(HAVE_BOOST_SERIALIZATION "Use Boost serialization library" \)ON/\1OFF/' $srcdir/$pkgname-$pkgver/packages/surfpack/CMakeLists.txt
+
   cmake $srcdir/$pkgname-$pkgver -DBOOST_SIGNALS_NO_DEPRECATION_WARNING=true -DCMAKE_INSTALL_PREFIX=/usr
   make -j 4 dakota
 }
